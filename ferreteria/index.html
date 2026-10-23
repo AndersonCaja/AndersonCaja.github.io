@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Ferretería El Clavo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: cabecera grafito con franja de seguridad; buscador fijo; catálogo en cuadrícula; barra de cotización abajo */
+:root{
+  --bg:#f3f2ef;
+  --card:#ffffff;
+  --ink:#1d1f22;
+  --muted:#62666d;
+  --line:#dcdad4;
+  --steel:#24272b;
+  --steel-2:#33373d;
+  --safety:#ffc414;
+  --orange:#e8590c;
+  --ok:#1faa59;
+  --font-display:"Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  --font-body:"Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141518; --card:#1d1f23; --ink:#eceae5; --muted:#a3a6ac; --line:#30333a;
+    --steel:#0d0e10; --steel-2:#1b1d21; --safety:#ffcd3a; --orange:#ff7a33; --ok:#33c46f;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141518; --card:#1d1f23; --ink:#eceae5; --muted:#a3a6ac; --line:#30333a;
+  --steel:#0d0e10; --steel-2:#1b1d21; --safety:#ffcd3a; --orange:#ff7a33; --ok:#33c46f;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.5;padding-bottom:110px}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+h1,h2,h3{margin:0;text-wrap:balance}
+:focus-visible{outline:3px solid var(--safety);outline-offset:2px;border-radius:6px}
+button,input,textarea{font-family:inherit}
+.stripe{height:10px;background:repeating-linear-gradient(-45deg, var(--safety) 0 14px, #1d1f22 14px 28px)}
+
+/* CABECERA */
+.hero{background:var(--steel);color:#f3f2ef}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:14px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:800;font-size:24px;text-transform:uppercase;letter-spacing:.02em}
+.logo-mark{width:34px;height:34px;background:var(--safety);color:#1d1f22;border-radius:6px;display:grid;place-items:center}
+.logo-mark svg{width:20px;height:20px}
+.demo{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(255,255,255,.25);padding:5px 10px;border-radius:999px;opacity:.85}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center;padding-block:24px 48px}
+.hero-copy{min-width:0}
+.kicker{font-family:var(--font-display);font-weight:700;font-size:18px;letter-spacing:.12em;text-transform:uppercase;color:var(--safety)}
+.hero h1{font-family:var(--font-display);font-weight:800;font-size:clamp(46px,7.5vw,84px);line-height:.95;text-transform:uppercase;margin:8px 0 16px}
+.hero h1 span{color:var(--safety)}
+.hero p{font-size:18px;opacity:.82;max-width:40ch;margin:0 0 22px}
+.facts{display:flex;flex-wrap:wrap;gap:10px}
+.fact{background:var(--steel-2);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:10px 14px;min-width:0}
+.fact b{display:block;font-family:var(--font-display);font-size:22px;font-weight:800;color:var(--safety);line-height:1}
+.fact small{font-size:13px;opacity:.75}
+.hero-photo{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/3;max-width:100%;box-shadow:0 0 0 6px var(--safety)}
+.hero-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-photo .open{position:absolute;left:12px;bottom:12px;background:rgba(13,14,16,.85);color:#fff;font-weight:700;font-size:14px;padding:7px 12px;border-radius:999px;display:flex;align-items:center;gap:8px}
+.dot{width:9px;height:9px;border-radius:50%;background:#999}
+.dot.on{background:#33c46f;box-shadow:0 0 0 4px rgba(51,196,111,.25)}
+.dot.off{background:#e5484d}
+@media (max-width:800px){.hero-grid{grid-template-columns:1fr;gap:28px}}
+
+/* BUSCADOR */
+.finder{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--bg)}
+.finder .wrap{padding-block:12px;display:flex;flex-direction:column;gap:10px}
+.search{display:flex;align-items:center;gap:10px;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:0 14px}
+.search:focus-within{border-color:var(--ink)}
+.search svg{width:20px;height:20px;flex:none;color:var(--muted)}
+.search input{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);font-size:17px;padding:13px 0;outline:none}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.chip{flex:none;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font-weight:700;font-size:14px;padding:7px 14px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip .n{opacity:.6;font-weight:600;margin-left:4px;font-variant-numeric:tabular-nums}
+
+/* CATÁLOGO */
+.result-line{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-top:22px;color:var(--muted);font-size:15px}
+.result-line strong{font-family:var(--font-display);font-size:26px;text-transform:uppercase;color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding-top:14px}
+@media (max-width:1000px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:720px){.grid{grid-template-columns:repeat(2,1fr);gap:12px}}
+@media (max-width:400px){.grid{grid-template-columns:1fr}}
+.prod{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.prod-img{position:relative;aspect-ratio:4/3;max-width:100%;background:var(--line);overflow:hidden}
+.prod-img img{width:100%;height:100%;object-fit:cover;display:block}
+.badge{position:absolute;left:8px;top:8px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:4px}
+.badge.sale{background:var(--safety);color:#1d1f22}
+.badge.low{background:var(--orange);color:#fff}
+.prod-body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:2px;flex:1}
+.cat{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.prod-name{font-weight:700;font-size:16px;line-height:1.25}
+.spec{font-size:13px;color:var(--muted)}
+.prod-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-top:auto;padding-top:10px;flex-wrap:wrap}
+.price{font-family:var(--font-display);font-weight:800;font-size:26px;line-height:1;font-variant-numeric:tabular-nums}
+.price small{display:block;font-family:var(--font-body);font-size:12px;font-weight:600;color:var(--muted);margin-top:3px}
+.price s{display:block;font-family:var(--font-body);font-size:13px;color:var(--muted);font-weight:600;margin-top:3px}
+.add-btn{border:0;background:var(--ink);color:var(--bg);font-weight:700;font-size:14px;padding:9px 12px;border-radius:8px;cursor:pointer}
+.stepper{display:flex;align-items:center;border:2px solid var(--ink);border-radius:8px;overflow:hidden}
+.stepper button{border:0;background:transparent;color:var(--ink);width:34px;height:32px;font-size:20px;font-weight:700;cursor:pointer}
+.stepper span{min-width:26px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.empty{grid-column:1/-1;background:var(--card);border:2px dashed var(--line);border-radius:12px;padding:32px;text-align:center;color:var(--muted)}
+.empty b{display:block;color:var(--ink);font-size:18px;margin-bottom:6px}
+
+/* SERVICIOS */
+.services{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.svc{background:var(--steel);color:#f3f2ef;border-radius:12px;padding:20px;min-width:0}
+.svc h3{font-family:var(--font-display);font-size:24px;font-weight:800;text-transform:uppercase;color:var(--safety)}
+.svc p{margin:6px 0 0;font-size:15px;opacity:.82}
+@media (max-width:720px){.services{grid-template-columns:1fr}}
+.info{margin-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.info div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-weight:600;font-size:15px;min-width:0}
+.info b{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+@media (max-width:720px){.info{grid-template-columns:1fr}}
+footer{text-align:center;color:var(--muted);font-size:13px;padding-block:30px}
+footer a{color:inherit}
+
+/* BARRA DE COTIZACIÓN */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:20;padding-bottom:env(safe-area-inset-bottom, 0px);transition:transform .25s ease}
+.bar[data-empty="true"]{transform:translateY(120%)}
+.bar .wrap{padding-block:12px}
+.bar-inner{background:var(--steel);color:#fff;border-radius:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 10px 10px 18px;box-shadow:0 12px 30px -10px rgba(0,0,0,.5);border-top:4px solid var(--safety)}
+.bar-total{min-width:0;font-variant-numeric:tabular-nums}
+.bar-total small{display:block;opacity:.7;font-size:13px}
+.bar-total strong{font-family:var(--font-display);font-size:24px;font-weight:800}
+.btn{border:0;border-radius:10px;padding:13px 20px;font-weight:700;font-size:16px;cursor:pointer}
+.btn-main{background:var(--ok);color:#fff}
+.btn-sec{background:transparent;color:var(--ink);border:2px solid var(--line)}
+
+/* HOJA */
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:30}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:31;background:var(--bg);border-radius:18px 18px 0 0;max-height:92vh;overflow-y:auto;padding-bottom:env(safe-area-inset-bottom, 0px)}
+.sheet .wrap{max-width:620px;padding-block:20px 26px;display:flex;flex-direction:column;gap:14px}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.sheet h2{font-family:var(--font-display);font-size:30px;font-weight:800;text-transform:uppercase}
+.close{background:var(--card);border:1px solid var(--line);color:var(--ink);width:40px;height:40px;border-radius:50%;font-size:22px;cursor:pointer}
+.summary{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;font-variant-numeric:tabular-nums}
+.summary .row{display:flex;justify-content:space-between;gap:12px}
+.summary .row.total{border-top:1px dashed var(--line);padding-top:8px;margin-top:4px;font-weight:700;font-size:18px}
+.note{font-size:13px;color:var(--muted);margin:0}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label,.field legend{font-weight:700;font-size:14px}
+.field input,.field textarea{font-size:16px;padding:12px 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)}
+.field input:focus,.field textarea:focus{border-color:var(--ink);outline:none}
+fieldset{border:0;padding:0;margin:0}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg label{flex:1;min-width:130px;text-align:center;padding:11px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);cursor:pointer;font-weight:700;font-size:15px;position:relative}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label:has(input:checked){border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.seg label:has(input:focus-visible){outline:3px solid var(--safety)}
+.err{color:#d93a3f;font-size:14px;font-weight:700;margin:0}
+.preview{white-space:pre-wrap;background:var(--card);border:1px dashed var(--muted);border-radius:10px;padding:14px;font-size:14px;max-height:220px;overflow:auto}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.actions .btn{flex:1;min-width:160px;text-align:center;text-decoration:none}
+@media (prefers-reduced-motion: reduce){.bar{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="topbar"><div class="wrap">
+    <div class="logo"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5h14"/><path d="M12 5v15"/><path d="M10 20h4"/></svg></span>El Clavo</div>
+    <span class="demo">Muestra · Anderson Web</span>
+  </div></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="kicker">Ferretería y materiales</div>
+      <h1>Todo para tu obra, <span>a un mensaje</span></h1>
+      <p>Busca lo que necesitas, arma tu lista y te enviamos la cotización por WhatsApp en minutos.</p>
+      <div class="facts">
+        <div class="fact"><b>+800</b><small>productos en tienda</small></div>
+        <div class="fact"><b>Envío</b><small>a obra el mismo día</small></div>
+        <div class="fact"><b>25 años</b><small>atendiendo al barrio</small></div>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="img/portada.jpg" alt="Interior de una ferretería con estantes llenos de herramientas">
+      <span class="open"><span class="dot" id="dot"></span><span id="open-text">Lun a sáb 7:30 a 20:00</span></span>
+    </div>
+  </div>
+  <div class="stripe"></div>
+</header>
+
+<div class="finder">
+  <div class="wrap">
+    <label class="search" for="q">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Busca: cemento, taladro, pintura…" autocomplete="off">
+    </label>
+    <div class="chips" id="chips" role="group" aria-label="Categorías"></div>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="result-line"><strong id="cat-title">Todo el catálogo</strong><span id="count"></span></div>
+  <div class="grid" id="grid"></div>
+
+  <div class="services">
+    <div class="svc"><h3>Envío a obra</h3><p>Llevamos cemento, fierro y materiales hasta tu obra. Gratis desde 10 bolsas de cemento.</p></div>
+    <div class="svc"><h3>Precios por volumen</h3><p>¿Compras para una obra grande? Pide tu cotización y te damos precio especial.</p></div>
+    <div class="svc"><h3>Asesoría</h3><p>Te ayudamos a calcular cuánto material necesitas antes de comprar.</p></div>
+  </div>
+  <div class="info">
+    <div><b>Dirección</b>Av. Industrial 1820, frente al grifo</div>
+    <div><b>Horario</b>Lun a sáb 7:30 a 20:00 · Dom 8:00 a 13:00</div>
+    <div><b>Pagos</b>Yape, Plin, efectivo, tarjeta y transferencia</div>
+  </div>
+</main>
+<footer>Negocio de ejemplo · Web hecha por Anderson Web · +51 947 350 799<br>Fotos de productos vía <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a></footer>
+
+<div class="bar" id="bar" data-empty="true" aria-live="polite">
+  <div class="wrap"><div class="bar-inner">
+    <div class="bar-total"><small id="bar-count">0 productos</small><strong id="bar-sum">S/ 0.00</strong></div>
+    <button class="btn btn-main" id="open-sheet" type="button">Pedir cotización</button>
+  </div></div>
+</div>
+
+<div class="sheet-bg" id="sheet-bg" hidden></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" hidden>
+  <div class="wrap">
+    <div class="sheet-head"><h2 id="sheet-title">Tu cotización</h2><button class="close" id="close-sheet" type="button" aria-label="Cerrar">×</button></div>
+    <div class="summary" id="summary"></div>
+    <p class="note">Precios referenciales. Te confirmamos stock y precio final por WhatsApp.</p>
+    <form id="quote-form" novalidate>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="field"><label for="f-name">Tu nombre</label><input id="f-name" autocomplete="name" placeholder="Ej. Carlos Ramírez"></div>
+        <fieldset class="field"><legend>Entrega</legend>
+          <div class="seg">
+            <label><input type="radio" name="mode" id="m-pick" value="recojo" checked><span>Recojo en tienda</span></label>
+            <label><input type="radio" name="mode" id="m-obra" value="obra"><span>Envío a obra</span></label>
+          </div>
+        </fieldset>
+        <div class="field" id="addr-field" hidden><label for="f-addr">Dirección de la obra</label><textarea id="f-addr" rows="2" placeholder="Ej. Calle Los Pinos 340, al lado de la losa"></textarea></div>
+        <p class="err" id="err" hidden></p>
+        <button class="btn btn-main" type="submit">Preparar mensaje de WhatsApp</button>
+      </div>
+    </form>
+    <div id="result" hidden style="display:flex;flex-direction:column;gap:12px">
+      <div class="preview" id="preview"></div>
+      <div class="actions">
+        <a class="btn btn-main" id="wa-link" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+        <button class="btn btn-sec" id="copy-msg" type="button">Copiar mensaje</button>
+      </div>
+      <p class="note">Es una demo: la cotización llega al WhatsApp de Anderson Web (+51 947 350 799).</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var PHONE='51947350799';
+  var CATS=[['herramientas','Herramientas'],['construccion','Construcción'],['pintura','Pintura'],['electricidad','Electricidad'],['tornilleria','Tornillería']];
+  var P=[
+    {id:'p1',c:'herramientas',n:'Martillo de uña 16 oz',s:'Mango de fibra antideslizante',p:25,u:'unidad',img:'martillo',k:'martillo clavos'},
+    {id:'p2',c:'herramientas',n:'Taladro percutor 600 W',s:'Mandril 13 mm, velocidad variable',p:189,old:219,u:'unidad',img:'taladro',k:'taladro perforar broca electrico'},
+    {id:'p3',c:'herramientas',n:'Juego de dados y llaves',s:'40 piezas, con estuche',p:79,u:'juego',img:'llaves',k:'llaves dados mecanica'},
+    {id:'p5',c:'herramientas',n:'Wincha 5 m',s:'Cinta de acero con freno',p:15,u:'unidad',img:'wincha',k:'wincha metro cinta medir'},
+    {id:'p6',c:'herramientas',n:'Alicate universal 8"',s:'Mango aislado',p:22,u:'unidad',img:'alicate',k:'alicate pinza'},
+    {id:'p7',c:'herramientas',n:'Caja de herramientas',s:'108 piezas para casa y taller',p:249,u:'set',img:'caja-herramientas',k:'caja kit herramientas',low:true},
+    {id:'p8',c:'construccion',n:'Cemento Portland Tipo I',s:'Bolsa de 42.5 kg',p:30,u:'bolsa',img:'cemento',k:'cemento bolsa obra concreto'},
+    {id:'p9',c:'construccion',n:'Tubo PVC agua 1/2"',s:'Clase 10, 5 m',p:9,u:'tubo',img:'tubo-pvc',k:'tubo pvc agua gasfiteria'},
+    {id:'p10',c:'pintura',n:'Pintura látex blanca',s:'Balde de 4 galones, lavable',p:145,old:165,u:'balde',img:'pintura',k:'pintura latex blanco balde'},
+    {id:'p11',c:'pintura',n:'Rodillo 9" con bandeja',s:'Felpa para paredes lisas',p:25,u:'kit',img:'rodillo',k:'rodillo bandeja pintar'},
+    {id:'p12',c:'pintura',n:'Kit de pintado',s:'Brochas, cinta, espátula y lija',p:59,u:'kit',img:'kit-pintura',k:'brocha cinta masking lija'},
+    {id:'p13',c:'electricidad',n:'Foco LED 12 W',s:'Luz blanca, rosca E27',p:6,u:'unidad',img:'foco-led',k:'foco led luz bombilla'},
+    {id:'p14',c:'electricidad',n:'Extensión eléctrica 5 m',s:'3 tomas con línea a tierra',p:18,u:'unidad',img:'extension',k:'extension cable enchufe toma'},
+    {id:'p15',c:'tornilleria',n:'Pernos con tuerca 3/8"',s:'Bolsa de 50 unidades',p:15,u:'bolsa',img:'pernos',k:'pernos tuercas'},
+    {id:'p16',c:'tornilleria',n:'Tornillos para drywall',s:'6 x 1", ciento',p:6,u:'ciento',img:'tornillos',k:'tornillos drywall'},
+    {id:'p17',c:'tornilleria',n:'Kit de tarugos y tornillos',s:'Estuche organizador surtido',p:20,u:'kit',img:'tarugos',k:'tarugos anclajes tornillos',low:true}
+  ];
+  var byId={};P.forEach(function(x){byId[x.id]=x;});
+  var cart={}, cat='todo';
+  function money(n){return 'S/ '+n.toFixed(2);}
+  function norm(t){return t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');}
+  var catName={todo:'Todo el catálogo'};CATS.forEach(function(c){catName[c[0]]=c[1];});
+
+  try{
+    var f=new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'numeric',weekday:'short',hour12:false,timeZone:'America/Lima'}).formatToParts(new Date());
+    var g={};f.forEach(function(x){g[x.type]=x.value;});
+    var m=parseInt(g.hour,10)%24*60+parseInt(g.minute,10), sun=g.weekday==='Sun';
+    var on=sun?(m>=480&&m<780):(m>=450&&m<1200);
+    document.getElementById('dot').className='dot '+(on?'on':'off');
+    document.getElementById('open-text').textContent=on?'Abierto ahora':'Cerrado ahora · abrimos 7:30';
+  }catch(e){}
+
+  var chips=document.getElementById('chips');
+  [['todo','Todo']].concat(CATS).forEach(function(c){
+    var b=document.createElement('button');b.type='button';b.className='chip';b.dataset.c=c[0];
+    var n=c[0]==='todo'?P.length:P.filter(function(x){return x.c===c[0];}).length;
+    b.innerHTML='<span></span><span class="n"></span>';b.children[0].textContent=c[1];b.children[1].textContent=n;
+    b.setAttribute('aria-pressed',c[0]==='todo'?'true':'false');
+    b.addEventListener('click',function(){cat=c[0];chips.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});draw();});
+    chips.appendChild(b);
+  });
+  var q=document.getElementById('q');q.addEventListener('input',draw);
+
+  function draw(){
+    var grid=document.getElementById('grid');grid.innerHTML='';
+    var term=norm(q.value.trim());
+    var list=P.filter(function(x){return (cat==='todo'||x.c===cat)&&(!term||norm(x.n+' '+x.s+' '+x.k).indexOf(term)>-1);});
+    document.getElementById('cat-title').textContent=term?'Resultados':catName[cat];
+    document.getElementById('count').textContent=list.length+(list.length===1?' producto':' productos');
+    if(!list.length){
+      var e=document.createElement('div');e.className='empty';
+      e.innerHTML='<b></b>Escríbenos por WhatsApp y te decimos si lo tenemos en tienda.';
+      e.querySelector('b').textContent='No encontramos "'+q.value.trim()+'" en el catálogo';
+      grid.appendChild(e);return;
+    }
+    list.forEach(function(x){
+      var el=document.createElement('article');el.className='prod';
+      el.innerHTML='<div class="prod-img"><img loading="lazy" alt=""></div><div class="prod-body"><div class="cat"></div><h3 class="prod-name"></h3><div class="spec"></div><div class="prod-foot"><div class="price"></div><div class="ctl"></div></div></div>';
+      var img=el.querySelector('img');img.src='img/'+x.img+'.jpg';img.alt=x.n;
+      if(x.old){var b=document.createElement('span');b.className='badge sale';b.textContent='Oferta';el.querySelector('.prod-img').appendChild(b);}
+      else if(x.low){var b2=document.createElement('span');b2.className='badge low';b2.textContent='Pocas unidades';el.querySelector('.prod-img').appendChild(b2);}
+      el.querySelector('.cat').textContent=catName[x.c];
+      el.querySelector('.prod-name').textContent=x.n;
+      el.querySelector('.spec').textContent=x.s;
+      var pr=el.querySelector('.price');pr.textContent=money(x.p);
+      if(x.old){var s=document.createElement('s');s.textContent=money(x.old);pr.appendChild(s);}
+      var sm=document.createElement('small');sm.textContent='por '+x.u;pr.appendChild(sm);
+      var ctl=el.querySelector('.ctl'),qn=cart[x.id]||0;
+      if(!qn){
+        var a=document.createElement('button');a.type='button';a.className='add-btn';a.textContent='Agregar';a.setAttribute('aria-label','Agregar '+x.n);
+        a.addEventListener('click',function(){change(x.id,1);});ctl.appendChild(a);
+      }else{
+        var st=document.createElement('div');st.className='stepper';
+        st.innerHTML='<button type="button">−</button><span></span><button type="button">+</button>';
+        st.children[0].setAttribute('aria-label','Quitar '+x.n);st.children[2].setAttribute('aria-label','Agregar otro '+x.n);
+        st.children[1].textContent=qn;
+        st.children[0].addEventListener('click',function(){change(x.id,-1);});
+        st.children[2].addEventListener('click',function(){change(x.id,1);});
+        ctl.appendChild(st);
+      }
+      grid.appendChild(el);
+    });
+  }
+  function totals(){var c=0,t=0;Object.keys(cart).forEach(function(k){c+=cart[k];t+=cart[k]*byId[k].p;});return {c:c,t:t};}
+  function change(id,d){
+    var focusId=document.activeElement&&document.activeElement.getAttribute('aria-label');
+    cart[id]=Math.max(0,(cart[id]||0)+d);if(!cart[id])delete cart[id];
+    draw();update();
+    if(focusId){var el=document.querySelector('[aria-label="'+focusId.replace(/"/g,'')+'"]')||document.querySelector('[aria-label="Agregar otro '+byId[id].n+'"]')||document.querySelector('[aria-label="Agregar '+byId[id].n+'"]');if(el)el.focus();}
+  }
+  function mode(){return document.querySelector('input[name=mode]:checked').value;}
+  function update(){
+    var t=totals();
+    document.getElementById('bar').dataset.empty=t.c?'false':'true';
+    document.getElementById('bar-count').textContent=t.c+(t.c===1?' producto en tu lista':' productos en tu lista');
+    document.getElementById('bar-sum').textContent=money(t.t);
+    var s=document.getElementById('summary');s.innerHTML='';
+    function row(a,b,cls){var r=document.createElement('div');r.className='row'+(cls?' '+cls:'');var x=document.createElement('span');x.textContent=a;var y=document.createElement('span');y.textContent=b;r.appendChild(x);r.appendChild(y);s.appendChild(r);}
+    Object.keys(cart).forEach(function(k){row(cart[k]+' × '+byId[k].n,money(cart[k]*byId[k].p));});
+    row('Total referencial',money(t.t),'total');
+    if(!t.c)closeSheet();
+  }
+
+  var sheet=document.getElementById('sheet'),bg=document.getElementById('sheet-bg');
+  function openSheet(){sheet.hidden=false;bg.hidden=false;document.getElementById('result').hidden=true;document.getElementById('quote-form').hidden=false;}
+  function closeSheet(){sheet.hidden=true;bg.hidden=true;}
+  document.getElementById('open-sheet').addEventListener('click',openSheet);
+  document.getElementById('close-sheet').addEventListener('click',closeSheet);
+  bg.addEventListener('click',closeSheet);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet();});
+  document.querySelectorAll('input[name=mode]').forEach(function(r){r.addEventListener('change',function(){document.getElementById('addr-field').hidden=mode()!=='obra';});});
+
+  var msg='';
+  document.getElementById('quote-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=document.getElementById('f-name').value.trim(),addr=document.getElementById('f-addr').value.trim(),err=document.getElementById('err');
+    if(!name){err.textContent='Escribe tu nombre para preparar la cotización.';err.hidden=false;return;}
+    if(mode()==='obra'&&!addr){err.textContent='Escribe la dirección de la obra para calcular el envío.';err.hidden=false;return;}
+    err.hidden=true;
+    var t=totals(),L=['Hola Ferretería El Clavo, quisiera cotizar:',''];
+    Object.keys(cart).forEach(function(k){var x=byId[k];L.push('• '+cart[k]+' '+(cart[k]===1?x.u:({unidad:'unidades'}[x.u]||x.u+'s'))+' — '+x.n+' ('+money(cart[k]*x.p)+')');});
+    L.push('','*Total referencial: '+money(t.t)+'*','','Nombre: '+name);
+    L.push(mode()==='obra'?'Envío a obra: '+addr:'Recojo en tienda');
+    msg=L.join('\n');
+    document.getElementById('preview').textContent=msg;
+    document.getElementById('wa-link').href='https://wa.me/'+PHONE+'?text='+encodeURIComponent(msg);
+    document.getElementById('quote-form').hidden=true;document.getElementById('result').hidden=false;
+  });
+  var cb=document.getElementById('copy-msg');
+  cb.addEventListener('click',function(){
+    function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById('preview'));var s=getSelection();s.removeAllRanges();s.addRange(r);cb.textContent='Selecciona y copia';}
+    try{navigator.clipboard.writeText(msg).then(function(){cb.textContent='¡Copiado!';setTimeout(function(){cb.textContent='Copiar mensaje';},1800);},sel);}catch(e){sel();}
+  });
+
+  cart={p8:10,p10:1};
+  draw();update();
+})();
+</script>
+
+</body>
+</html>

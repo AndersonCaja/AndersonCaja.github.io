@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Barbería Estilo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: portada a pantalla ancha con foto; reserva en 4 pasos (servicio, barbero, día, hora) y resumen fijo */
+:root{
+  --bg:#f4f1ec;
+  --card:#ffffff;
+  --ink:#16181c;
+  --muted:#6a6d74;
+  --line:#e0dcd4;
+  --night:#121417;
+  --red:#c8202f;
+  --blue:#1f4fb4;
+  --ok:#1faa59;
+  --font-display:"DM Serif Display", Georgia, serif;
+  --font-body:"Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121417; --card:#1b1e23; --ink:#efece6; --muted:#a2a5ab; --line:#2d3138;
+    --night:#0b0c0e; --red:#ef3b4b; --blue:#5b86e5; --ok:#33c46f;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121417; --card:#1b1e23; --ink:#efece6; --muted:#a2a5ab; --line:#2d3138;
+  --night:#0b0c0e; --red:#ef3b4b; --blue:#5b86e5; --ok:#33c46f;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55;padding-bottom:120px}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+h1,h2,h3{margin:0;text-wrap:balance}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:8px}
+button,input{font-family:inherit}
+.pole{height:8px;background:repeating-linear-gradient(-45deg, var(--red) 0 12px, #fff 12px 24px, var(--blue) 24px 36px, #fff 36px 48px)}
+
+/* PORTADA */
+.hero{position:relative;color:#fff;background:#111 url("img/portada.jpg") center/cover no-repeat}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg, rgba(10,11,13,.92) 0%, rgba(10,11,13,.7) 50%, rgba(10,11,13,.25) 100%)}
+.hero > *{position:relative}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:16px}
+.logo{font-family:var(--font-display);font-size:26px;letter-spacing:.01em}
+.logo i{color:#ff5a66}
+.demo{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(255,255,255,.3);padding:5px 10px;border-radius:999px}
+.hero-copy{padding-block:40px 64px;max-width:600px}
+.eyebrow{font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#ff8a93}
+.hero h1{font-family:var(--font-display);font-weight:400;font-size:clamp(46px,8vw,86px);line-height:.98;margin:12px 0 16px}
+.hero h1 i{color:#ff5a66}
+.hero p{font-size:18px;opacity:.85;margin:0 0 26px;max-width:42ch}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.cta{display:inline-block;background:var(--red);color:#fff;font-weight:800;font-size:17px;padding:15px 26px;border-radius:999px;text-decoration:none}
+.status{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.2);padding:9px 14px;border-radius:999px}
+.dot{width:9px;height:9px;border-radius:50%;background:#999}
+.dot.on{background:#33c46f;box-shadow:0 0 0 4px rgba(51,196,111,.25)}
+.dot.off{background:#e5484d}
+
+/* PASOS */
+.step{padding-top:52px;scroll-margin-top:16px}
+.step-head{display:flex;align-items:baseline;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.step-n{font-family:var(--font-display);font-size:44px;line-height:1;color:var(--red)}
+.step-head h2{font-family:var(--font-display);font-weight:400;font-size:clamp(30px,4.5vw,40px);line-height:1.05}
+.step-head p{flex-basis:100%;margin:0;color:var(--muted)}
+
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:860px){.services{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.services{grid-template-columns:1fr}}
+.svc{all:unset;box-sizing:border-box;cursor:pointer;background:var(--card);border:2px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.svc:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.svc[aria-checked="true"]{border-color:var(--red);box-shadow:0 0 0 2px var(--red)}
+.svc-img{aspect-ratio:16/10;max-width:100%;overflow:hidden;position:relative}
+.svc-img img{width:100%;height:100%;object-fit:cover;display:block}
+.check{position:absolute;right:10px;top:10px;width:30px;height:30px;border-radius:50%;background:var(--red);color:#fff;display:none;place-items:center;font-weight:800}
+.svc[aria-checked="true"] .check{display:grid}
+.svc-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:4px;flex:1}
+.svc-name{font-weight:800;font-size:17px}
+.svc-desc{font-size:14px;color:var(--muted)}
+.svc-foot{display:flex;justify-content:space-between;align-items:baseline;margin-top:auto;padding-top:8px}
+.svc-price{font-family:var(--font-display);font-size:28px;font-variant-numeric:tabular-nums}
+.svc-time{font-size:13px;font-weight:700;color:var(--muted);background:var(--bg);padding:3px 9px;border-radius:999px}
+
+.barbers{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media (max-width:760px){.barbers{grid-template-columns:repeat(2,1fr)}}
+.barber{all:unset;box-sizing:border-box;cursor:pointer;background:var(--card);border:2px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;min-width:0}
+.barber:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.barber[aria-checked="true"]{border-color:var(--red);box-shadow:0 0 0 2px var(--red)}
+.barber img,.barber .any{width:84px;height:84px;border-radius:50%;object-fit:cover}
+.barber .any{display:grid;place-items:center;background:var(--bg);font-family:var(--font-display);font-size:34px;color:var(--red)}
+.barber b{font-size:16px}
+.barber small{color:var(--muted);font-size:13px;line-height:1.35}
+
+.days{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.day{all:unset;box-sizing:border-box;cursor:pointer;flex:none;width:76px;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:10px 6px;text-align:center}
+.day:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.day small{display:block;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.day b{display:block;font-family:var(--font-display);font-size:30px;font-weight:400;line-height:1.1;font-variant-numeric:tabular-nums}
+.day span{font-size:12px;color:var(--muted)}
+.day[aria-checked="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.day[aria-checked="true"] small,.day[aria-checked="true"] span{color:inherit;opacity:.75}
+.day:disabled,.day[aria-disabled="true"]{opacity:.4;cursor:not-allowed}
+
+.slots{display:grid;grid-template-columns:repeat(auto-fill, minmax(108px,1fr));gap:8px;margin-top:16px}
+.slot{all:unset;box-sizing:border-box;cursor:pointer;text-align:center;padding:11px 4px;border-radius:10px;border:2px solid var(--line);background:var(--card);font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap;font-size:15px}
+.slot:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.slot[aria-checked="true"]{background:var(--red);border-color:var(--red);color:#fff}
+.slot[aria-disabled="true"]{cursor:not-allowed;color:var(--muted);text-decoration:line-through;opacity:.55;background:transparent}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;border:2px solid var(--line);vertical-align:-1px;margin-right:6px}
+.legend .r{background:var(--red);border-color:var(--red)}
+.msg{background:var(--card);border:2px dashed var(--line);border-radius:12px;padding:18px;color:var(--muted);margin-top:16px}
+
+/* GALERÍA + INFO */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.gallery img{width:100%;aspect-ratio:1/1;max-width:100%;object-fit:cover;border-radius:12px;display:block}
+@media (max-width:640px){.gallery{grid-template-columns:repeat(2,1fr)}}
+.info{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.info div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-weight:600;font-size:15px;min-width:0}
+.info b{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:2px;font-weight:800}
+@media (max-width:720px){.info{grid-template-columns:1fr}}
+footer{text-align:center;color:var(--muted);font-size:13px;padding-block:32px}
+footer a{color:inherit}
+
+/* RESUMEN FIJO */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:20;padding-bottom:env(safe-area-inset-bottom, 0px)}
+.bar .wrap{padding-block:12px}
+.bar-inner{background:var(--night);color:#fff;border-radius:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 12px 12px 18px;box-shadow:0 12px 30px -10px rgba(0,0,0,.55)}
+.bar-text{min-width:0;font-size:14px;line-height:1.35}
+.bar-text b{display:block;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-text span{opacity:.75}
+.btn{border:0;border-radius:999px;padding:14px 22px;font-weight:800;font-size:16px;cursor:pointer;flex:none}
+.btn-main{background:var(--ok);color:#fff}
+.btn-main:disabled{background:#4a4e55;color:#c9cbcf;cursor:not-allowed}
+.btn-sec{background:transparent;color:var(--ink);border:2px solid var(--line)}
+
+/* HOJA */
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:30}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:31;background:var(--bg);border-radius:22px 22px 0 0;max-height:92vh;overflow-y:auto;padding-bottom:env(safe-area-inset-bottom, 0px)}
+.sheet .wrap{max-width:600px;padding-block:22px 26px;display:flex;flex-direction:column;gap:14px}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.sheet h2{font-family:var(--font-display);font-weight:400;font-size:32px}
+.close{background:var(--card);border:1px solid var(--line);color:var(--ink);width:40px;height:40px;border-radius:50%;font-size:22px;cursor:pointer}
+.ticket{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:15px}
+.ticket dt{color:var(--muted);font-weight:600}
+.ticket dd{margin:0;font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-weight:700;font-size:14px}
+.field input{font-size:16px;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)}
+.field input:focus{border-color:var(--red);outline:none}
+.err{color:#d93a3f;font-size:14px;font-weight:700;margin:0}
+.preview{white-space:pre-wrap;background:var(--card);border:1px dashed var(--muted);border-radius:12px;padding:14px;font-size:14px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.actions .btn{flex:1;min-width:160px;text-align:center;text-decoration:none}
+.note{font-size:13px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="topbar"><div class="wrap"><div class="logo">Barbería <i>Estilo</i></div><span class="demo">Muestra · Anderson Web</span></div></div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="eyebrow">Cortes · Barba · Afeitado clásico</div>
+      <h1>Tu corte, <i>sin hacer cola</i></h1>
+      <p>Elige tu servicio, tu barbero y la hora que te acomode. Reserva en un minuto y te confirmamos por WhatsApp.</p>
+      <div class="hero-cta">
+        <a class="cta" href="#paso-1">Reservar mi cita</a>
+        <span class="status"><span class="dot" id="dot"></span><span id="open-text">Mar a dom · 10:00 a 21:00</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="pole"></div>
+</header>
+
+<main class="wrap">
+  <section class="step" id="paso-1">
+    <div class="step-head"><span class="step-n">1</span><h2>¿Qué te hacemos hoy?</h2></div>
+    <div class="services" id="services" role="radiogroup" aria-label="Servicio"></div>
+  </section>
+
+  <section class="step" id="paso-2">
+    <div class="step-head"><span class="step-n">2</span><h2>Elige a tu barbero</h2></div>
+    <div class="barbers" id="barbers" role="radiogroup" aria-label="Barbero"></div>
+  </section>
+
+  <section class="step" id="paso-3">
+    <div class="step-head"><span class="step-n">3</span><h2>Día y hora</h2><p>Los lunes descansamos. Las horas tachadas ya están reservadas.</p></div>
+    <div class="days" id="days" role="radiogroup" aria-label="Día"></div>
+    <div class="slots" id="slots" role="radiogroup" aria-label="Hora"></div>
+    <div class="legend"><span><i></i>Disponible</span><span><i class="r"></i>Tu elección</span><span style="text-decoration:line-through">Ocupado</span></div>
+  </section>
+
+  <section class="step">
+    <div class="step-head"><h2>Trabajos recientes</h2></div>
+    <div class="gallery">
+      <img src="img/g1.jpg" alt="Barbero perfilando un degradado con navaja" loading="lazy">
+      <img src="img/g2.jpg" alt="Cliente con barba larga recibiendo un corte" loading="lazy">
+      <img src="img/g3.jpg" alt="Barbero recortando la barba de un cliente" loading="lazy">
+      <img src="img/g4.jpg" alt="Niño recibiendo un corte con máquina" loading="lazy">
+    </div>
+    <div class="info">
+      <div><b>Dirección</b>Jr. Bolognesi 512, a media cuadra de la plaza</div>
+      <div><b>Horario</b>Martes a domingo, 10:00 a 21:00</div>
+      <div><b>Pagos</b>Yape, Plin, efectivo y tarjeta</div>
+    </div>
+  </section>
+</main>
+<footer>Negocio de ejemplo · Web hecha por Anderson Web · +51 947 350 799<br>Fotos vía <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a></footer>
+
+<div class="bar" aria-live="polite">
+  <div class="wrap"><div class="bar-inner">
+    <div class="bar-text"><b id="bar-main">Elige un servicio</b><span id="bar-sub">Paso 1 de 3</span></div>
+    <button class="btn btn-main" id="open-sheet" type="button" disabled>Reservar</button>
+  </div></div>
+</div>
+
+<div class="sheet-bg" id="sheet-bg" hidden></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" hidden>
+  <div class="wrap">
+    <div class="sheet-head"><h2 id="sheet-title">Confirma tu cita</h2><button class="close" id="close-sheet" type="button" aria-label="Cerrar">×</button></div>
+    <dl class="ticket" id="ticket"></dl>
+    <form id="book-form" novalidate>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="field"><label for="f-name">Tu nombre</label><input id="f-name" autocomplete="name" placeholder="Ej. Diego Torres"></div>
+        <p class="err" id="err" hidden></p>
+        <button class="btn btn-main" type="submit">Preparar mensaje de WhatsApp</button>
+      </div>
+    </form>
+    <div id="result" hidden style="display:flex;flex-direction:column;gap:12px">
+      <div class="preview" id="preview"></div>
+      <div class="actions">
+        <a class="btn btn-main" id="wa-link" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+        <button class="btn btn-sec" id="copy-msg" type="button">Copiar mensaje</button>
+      </div>
+      <p class="note">Es una demo: la reserva llega al WhatsApp de Anderson Web (+51 947 350 799).</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var PHONE='51947350799';
+  var SERVICES=[
+    {id:'s1',n:'Corte clásico',d:'Tijera y máquina, con lavado',p:25,m:30,img:'clasico'},
+    {id:'s2',n:'Corte con degradado',d:'Fade bajo, medio o alto, con diseño de línea',p:30,m:40,img:'degradado'},
+    {id:'s3',n:'Perfilado de barba',d:'Forma, contorno con navaja y bálsamo',p:15,m:20,img:'barba'},
+    {id:'s4',n:'Corte + barba',d:'El combo completo para salir impecable',p:40,m:60,img:'corte-barba'},
+    {id:'s5',n:'Afeitado con toalla caliente',d:'Navaja clásica, toalla caliente y loción',p:25,m:30,img:'toalla'},
+    {id:'s6',n:'Corte de niño',d:'Hasta 12 años, con mucha paciencia',p:20,m:30,img:'nino'}
+  ];
+  var BARBERS=[
+    {id:'any',n:'El que esté libre',d:'Te asignamos al primero disponible'},
+    {id:'jhon',n:'Jhon',d:'Degradados y diseños',img:'jhon'},
+    {id:'kevin',n:'Kevin',d:'Barbas y afeitado clásico',img:'kevin'},
+    {id:'lucho',n:'Don Lucho',d:'30 años de oficio, cortes clásicos',img:'lucho'}
+  ];
+  var DOW=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  var MON=['ene','feb','mar','abr','may','jun','jul','ago','set','oct','nov','dic'];
+  var DOW_LONG=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+  var state={svc:null,barber:'any',day:null,slot:null};
+
+  // Hora de Lima
+  function limaNow(){
+    var parts={};new Intl.DateTimeFormat('en-US',{timeZone:'America/Lima',year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',hour12:false}).formatToParts(new Date()).forEach(function(p){parts[p.type]=p.value;});
+    return {y:+parts.year,mo:+parts.month-1,d:+parts.day,min:(+parts.hour%24)*60+(+parts.minute)};
+  }
+  var now;try{now=limaNow();}catch(e){var t=new Date();now={y:t.getFullYear(),mo:t.getMonth(),d:t.getDate(),min:t.getHours()*60+t.getMinutes()};}
+  var OPEN=600,CLOSE=1260;
+  (function(){
+    var dow=new Date(Date.UTC(now.y,now.mo,now.d)).getUTCDay();
+    var on=dow!==1&&now.min>=OPEN&&now.min<CLOSE;
+    document.getElementById('dot').className='dot '+(on?'on':'off');
+    document.getElementById('open-text').textContent=on?'Abierto ahora · hasta las 21:00':(dow===1?'Hoy lunes descansamos':'Cerrado ahora · abrimos 10:00');
+  })();
+
+  var DAYS=[];
+  for(var i=0;i<8;i++){var dt=new Date(Date.UTC(now.y,now.mo,now.d+i));DAYS.push({key:dt.toISOString().slice(0,10),dow:dt.getUTCDay(),d:dt.getUTCDate(),mo:dt.getUTCMonth(),i:i});}
+
+  function hash(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return (h>>>0);}
+  function taken(day,min,barber){
+    if(barber==='any'){return ['jhon','kevin','lucho'].every(function(b){return taken(day,min,b);});}
+    return hash(day+'|'+min+'|'+barber)%100<38;
+  }
+  function fmt(min){var h=Math.floor(min/60),m=min%60;var ap=h<12?'a. m.':'p. m.';var hh=h%12||12;return hh+':'+(m<10?'0':'')+m+' '+ap;}
+  function money(n){return 'S/ '+n;}
+
+  function radio(container,items,render,key,onPick){
+    container.innerHTML='';
+    items.forEach(function(it){
+      var b=document.createElement('button');b.type='button';b.setAttribute('role','radio');
+      render(b,it);
+      b.setAttribute('aria-checked',state[key]===it.id?'true':'false');
+      b.addEventListener('click',function(){if(b.getAttribute('aria-disabled')==='true')return;state[key]=it.id;onPick&&onPick();renderAll(key);});
+      container.appendChild(b);
+    });
+  }
+  function renderServices(){
+    radio(document.getElementById('services'),SERVICES,function(b,s){
+      b.className='svc';
+      b.innerHTML='<div class="svc-img"><img loading="lazy" alt=""><span class="check" aria-hidden="true">✓</span></div><div class="svc-body"><div class="svc-name"></div><div class="svc-desc"></div><div class="svc-foot"><span class="svc-price"></span><span class="svc-time"></span></div></div>';
+      b.querySelector('img').src='img/'+s.img+'.jpg';
+      b.querySelector('.svc-name').textContent=s.n;b.querySelector('.svc-desc').textContent=s.d;
+      b.querySelector('.svc-price').textContent=money(s.p);b.querySelector('.svc-time').textContent=s.m+' min';
+      b.setAttribute('aria-label',s.n+', '+money(s.p)+', '+s.m+' minutos');
+    },'svc');
+  }
+  function renderBarbers(){
+    radio(document.getElementById('barbers'),BARBERS,function(b,x){
+      b.className='barber';
+      b.innerHTML=(x.img?'<img alt="">':'<span class="any" aria-hidden="true">✂</span>')+'<b></b><small></small>';
+      if(x.img){b.querySelector('img').src='img/'+x.img+'.jpg';}
+      b.querySelector('b').textContent=x.n;b.querySelector('small').textContent=x.d;
+    },'barber',function(){state.slot=null;});
+  }
+  function renderDays(){
+    radio(document.getElementById('days'),DAYS.map(function(d){return {id:d.key,d:d};}),function(b,x){
+      var d=x.d;b.className='day';
+      b.innerHTML='<small></small><b></b><span></span>';
+      b.querySelector('small').textContent=d.i===0?'Hoy':d.i===1?'Mañana':DOW[d.dow];
+      b.querySelector('b').textContent=d.d;b.querySelector('span').textContent=d.dow===1?'Cerrado':MON[d.mo];
+      if(d.dow===1)b.setAttribute('aria-disabled','true');
+      b.setAttribute('aria-label',DOW_LONG[d.dow]+' '+d.d+' de '+MON[d.mo]+(d.dow===1?', cerrado':''));
+    },'day',function(){state.slot=null;});
+  }
+  function renderSlots(){
+    var box=document.getElementById('slots');box.innerHTML='';
+    var old=document.getElementById('slot-msg');if(old)old.remove();
+    if(!state.day){var m=document.createElement('div');m.className='msg';m.id='slot-msg';m.textContent='Elige un día para ver las horas disponibles.';box.after(m);return;}
+    var d=DAYS.filter(function(x){return x.key===state.day;})[0];
+    var list=[];for(var t=OPEN;t<CLOSE;t+=30){list.push(t);}
+    var any=false;
+    radio(box,list.map(function(t){return {id:String(t),t:t};}),function(b,x){
+      b.className='slot';b.textContent=fmt(x.t);
+      var past=d.i===0&&x.t<=now.min+30;
+      if(past||taken(state.day,x.t,state.barber)){b.setAttribute('aria-disabled','true');b.setAttribute('aria-label',fmt(x.t)+', no disponible');}
+      else any=true;
+    },'slot');
+    if(!any){box.innerHTML='';var m2=document.createElement('div');m2.className='msg';m2.id='slot-msg';m2.textContent='No quedan horas libres este día. Prueba con otro día u otro barbero.';box.after(m2);}
+  }
+  function pickedBarber(){
+    if(state.barber!=='any')return BARBERS.filter(function(b){return b.id===state.barber;})[0].n;
+    var free=['jhon','kevin','lucho'].filter(function(b){return !taken(state.day,+state.slot,b);})[0];
+    return BARBERS.filter(function(b){return b.id===free;})[0].n;
+  }
+  function updateBar(){
+    var s=SERVICES.filter(function(x){return x.id===state.svc;})[0];
+    var main=document.getElementById('bar-main'),sub=document.getElementById('bar-sub'),btn=document.getElementById('open-sheet');
+    if(!s){main.textContent='Elige un servicio';sub.textContent='Paso 1 de 3';btn.disabled=true;return;}
+    main.textContent=s.n+' · '+money(s.p);
+    if(!state.day){sub.textContent='Ahora elige el día';btn.disabled=true;return;}
+    var d=DAYS.filter(function(x){return x.key===state.day;})[0];
+    if(!state.slot){sub.textContent=(d.i===0?'Hoy':DOW[d.dow]+' '+d.d)+' · elige la hora';btn.disabled=true;return;}
+    sub.textContent=(d.i===0?'Hoy':d.i===1?'Mañana':DOW[d.dow]+' '+d.d+' '+MON[d.mo])+' · '+fmt(+state.slot)+' · con '+pickedBarber();
+    btn.disabled=false;
+  }
+  function renderAll(changed){
+    if(!changed||changed==='svc')renderServices();
+    if(!changed||changed==='barber')renderBarbers();
+    if(!changed||changed==='day')renderDays();
+    renderSlots();updateBar();
+    if(changed){var sel=document.querySelector('[role=radiogroup] [aria-checked="true"][class="'+({svc:'svc',barber:'barber',day:'day',slot:'slot'}[changed])+'"]');if(sel)sel.focus({preventScroll:true});}
+  }
+
+  var sheet=document.getElementById('sheet'),bg=document.getElementById('sheet-bg');
+  function openSheet(){
+    var s=SERVICES.filter(function(x){return x.id===state.svc;})[0],d=DAYS.filter(function(x){return x.key===state.day;})[0];
+    var tk=document.getElementById('ticket');tk.innerHTML='';
+    [['Servicio',s.n],['Barbero',pickedBarber()],['Día',DOW_LONG[d.dow]+' '+d.d+' de '+MON[d.mo]],['Hora',fmt(+state.slot)],['Duración',s.m+' min'],['Precio',money(s.p)]].forEach(function(r){
+      var dt=document.createElement('dt');dt.textContent=r[0];var dd=document.createElement('dd');dd.textContent=r[1];tk.appendChild(dt);tk.appendChild(dd);
+    });
+    sheet.hidden=false;bg.hidden=false;document.getElementById('result').hidden=true;document.getElementById('book-form').hidden=false;
+  }
+  function closeSheet(){sheet.hidden=true;bg.hidden=true;}
+  document.getElementById('open-sheet').addEventListener('click',openSheet);
+  document.getElementById('close-sheet').addEventListener('click',closeSheet);
+  bg.addEventListener('click',closeSheet);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet();});
+
+  var msg='';
+  document.getElementById('book-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=document.getElementById('f-name').value.trim(),err=document.getElementById('err');
+    if(!name){err.textContent='Escribe tu nombre para apartar la cita.';err.hidden=false;return;}
+    err.hidden=true;
+    var s=SERVICES.filter(function(x){return x.id===state.svc;})[0],d=DAYS.filter(function(x){return x.key===state.day;})[0];
+    msg=['Hola Barbería Estilo, quiero reservar una cita:','','✂ '+s.n+' ('+s.m+' min) — '+money(s.p),'👤 Barbero: '+pickedBarber(),'📅 '+DOW_LONG[d.dow].charAt(0).toUpperCase()+DOW_LONG[d.dow].slice(1)+' '+d.d+' de '+MON[d.mo]+' a las '+fmt(+state.slot),'','Nombre: '+name].join('\n');
+    document.getElementById('preview').textContent=msg;
+    document.getElementById('wa-link').href='https://wa.me/'+PHONE+'?text='+encodeURIComponent(msg);
+    document.getElementById('book-form').hidden=true;document.getElementById('result').hidden=false;
+  });
+  var cb=document.getElementById('copy-msg');
+  cb.addEventListener('click',function(){
+    function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById('preview'));var s=getSelection();s.removeAllRanges();s.addRange(r);cb.textContent='Selecciona y copia';}
+    try{navigator.clipboard.writeText(msg).then(function(){cb.textContent='¡Copiado!';setTimeout(function(){cb.textContent='Copiar mensaje';},1800);},sel);}catch(e){sel();}
+  });
+
+  // Ejemplo inicial: degradado, mañana (o el siguiente día abierto)
+  state.svc='s2';
+  var firstOpen=DAYS.filter(function(d){return d.i>0&&d.dow!==1;})[0];state.day=firstOpen.key;
+  renderAll();
+})();
+</script>
+
+</body>
+</html>
