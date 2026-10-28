@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Oxopampa Fosky</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rye&family=Zilla+Slab:wght@500;600;700&family=Source+Sans+3:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: portada con el valle de Oxapampa y letrero de madera; carta tipo pizarra con pestañas; barra de pedido fija */
+:root{
+  --bg:#f6efe2;
+  --paper:#fffaf1;
+  --ink:#2b1c12;
+  --muted:#7a6352;
+  --line:#e6d6bf;
+  --wood:#7a4a26;
+  --wood-dark:#4a2b15;
+  --forest:#2f5d3a;
+  --red:#b8322a;
+  --ok:#1faa59;
+  --font-sign:"Rye", "Georgia", serif;
+  --font-head:"Zilla Slab", Georgia, serif;
+  --font-body:"Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#17110c; --paper:#211812; --ink:#f4e9da; --muted:#bca78f; --line:#3a2b1f;
+    --wood:#a8693a; --wood-dark:#2a190c; --forest:#5f9e6d; --red:#e0574b; --ok:#33c46f;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#17110c; --paper:#211812; --ink:#f4e9da; --muted:#bca78f; --line:#3a2b1f;
+  --wood:#a8693a; --wood-dark:#2a190c; --forest:#5f9e6d; --red:#e0574b; --ok:#33c46f;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.5;padding-bottom:110px}
+.wrap{max-width:980px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+h1,h2,h3{margin:0;text-wrap:balance}
+:focus-visible{outline:3px solid #f2b33d;outline-offset:2px;border-radius:6px}
+button,input,textarea{font-family:inherit}
+
+.demo-strip{background:var(--forest);color:#fff;font-size:13px;font-weight:700;text-align:center}
+.demo-strip .wrap{padding-block:7px}
+
+/* PORTADA */
+.hero{position:relative;color:#fff;background:#1d140d url("img/valle.jpg") center 60%/cover no-repeat;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(20,12,6,.35) 0%, rgba(20,12,6,.55) 45%, rgba(20,12,6,.92) 100%)}
+.hero .wrap{position:relative;padding-block:40px 34px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px}
+.sign{background:linear-gradient(180deg,#8a5530,#6a3d1d);border:4px solid #3e2410;border-radius:10px;padding:16px 28px 14px;box-shadow:0 10px 0 -4px #3e2410, 0 20px 40px rgba(0,0,0,.45);position:relative;max-width:100%}
+.sign::before,.sign::after{content:"";position:absolute;top:-30px;width:3px;height:30px;background:#3e2410}
+.sign::before{left:22%}.sign::after{right:22%}
+.sign small{display:block;font-family:var(--font-head);font-weight:600;font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:#f6dcb3}
+.sign h1{font-family:var(--font-sign);font-weight:400;font-size:clamp(38px,9vw,74px);line-height:1;color:#fff4e0;text-shadow:0 3px 0 #3e2410}
+.tagline{font-size:19px;max-width:34ch;margin:0;opacity:.92}
+.pills{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:8px;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.2);padding:7px 13px;border-radius:999px;font-size:14px;font-weight:700}
+.dot{width:9px;height:9px;border-radius:50%;background:#999}
+.dot.on{background:#33c46f;box-shadow:0 0 0 4px rgba(51,196,111,.25)}
+.dot.off{background:#e5484d}
+.cta{display:inline-block;background:#f2b33d;color:#2b1c12;font-weight:800;font-size:17px;padding:14px 26px;border-radius:999px;text-decoration:none;box-shadow:0 5px 0 #a8741a}
+
+/* DESTACADOS */
+.feature{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+.feat{position:relative;border-radius:18px;overflow:hidden;min-height:220px;background:#2a190c;color:#fff;display:flex;align-items:flex-end;min-width:0}
+.feat img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.feat::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.85));z-index:1}
+.feat-body{position:relative;z-index:2;padding:18px}
+.feat-body small{font-family:var(--font-head);font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#f2b33d}
+.feat-body h3{font-family:var(--font-head);font-size:26px;line-height:1.1;margin:2px 0 4px}
+.feat-body p{margin:0;font-size:14px;opacity:.85}
+@media (max-width:640px){.feature{grid-template-columns:1fr}}
+
+/* CARTA */
+.tabs{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-top:32px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--bg)}
+.tabs .wrap{display:flex;gap:8px;overflow-x:auto;padding-block:12px;scrollbar-width:none}
+.tab{flex:none;border:2px solid var(--line);background:var(--paper);color:var(--ink);font-weight:800;font-size:15px;padding:9px 16px;border-radius:999px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--wood);border-color:var(--wood);color:#fff}
+
+.board{background:var(--paper);border:1px solid var(--line);border-radius:20px;margin-top:20px;padding:24px 24px 12px;position:relative}
+.board-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;border-bottom:3px double var(--line);padding-bottom:14px;margin-bottom:6px}
+.board-head h2{font-family:var(--font-sign);font-weight:400;font-size:clamp(26px,5vw,36px);color:var(--wood);line-height:1}
+.board-head p{margin:4px 0 0;color:var(--muted);font-size:15px}
+.price-badge{font-family:var(--font-head);font-weight:700;font-size:16px;background:var(--red);color:#fff;padding:6px 12px;border-radius:8px;white-space:nowrap}
+.items{display:grid;grid-template-columns:1fr 1fr;column-gap:32px}
+@media (max-width:720px){.items{grid-template-columns:1fr}.board{padding:18px 16px 8px}}
+.item{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px dashed var(--line);min-width:0}
+.item-info{min-width:0}
+.item-name{font-family:var(--font-head);font-weight:700;font-size:19px;line-height:1.2}
+.item-name .star{display:inline-block;margin-left:6px;font-family:var(--font-body);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:var(--forest);color:#fff;padding:2px 7px;border-radius:4px;vertical-align:3px}
+.item-desc{color:var(--muted);font-size:14px;margin-top:2px}
+.item-price{font-weight:800;font-variant-numeric:tabular-nums;margin-top:4px}
+.item-price.ask{font-weight:700;color:var(--muted);font-size:14px}
+.qty{display:flex;align-items:center;gap:6px}
+.qty button{width:36px;height:36px;border-radius:50%;border:2px solid var(--wood);background:transparent;color:var(--wood);font-size:20px;font-weight:800;line-height:1;cursor:pointer}
+.qty .add{background:var(--wood);color:#fff}
+.qty .n{min-width:18px;text-align:center;font-weight:800;font-variant-numeric:tabular-nums}
+.qty [hidden]{display:none}
+.board-foot{font-size:14px;color:var(--muted);padding:12px 0 6px}
+
+/* CAFÉ + INFO */
+.cafe{margin-top:28px;background:var(--wood-dark);color:#f8ead6;border-radius:20px;padding:24px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center}
+.cafe svg{width:84px;height:84px}
+.cafe h2{font-family:var(--font-head);font-size:26px}
+.cafe p{margin:6px 0 0;opacity:.85}
+@media (max-width:560px){.cafe{grid-template-columns:1fr;text-align:center}.cafe svg{margin:0 auto}}
+.info{margin-top:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.info div{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-weight:600;font-size:15px;min-width:0}
+.info b{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--forest);margin-bottom:2px;font-weight:800}
+@media (max-width:720px){.info{grid-template-columns:1fr}}
+footer{text-align:center;color:var(--muted);font-size:13px;padding-block:30px}
+footer a{color:inherit}
+
+/* BARRA + HOJA */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:20;padding-bottom:env(safe-area-inset-bottom, 0px);transition:transform .25s ease}
+.bar[data-empty="true"]{transform:translateY(120%)}
+.bar .wrap{padding-block:12px}
+.bar-inner{background:var(--wood-dark);color:#fff;border-radius:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 12px 12px 18px;box-shadow:0 12px 30px -10px rgba(0,0,0,.5);border-top:3px solid #f2b33d}
+.bar-total{min-width:0;font-variant-numeric:tabular-nums}
+.bar-total small{display:block;opacity:.75;font-size:13px}
+.bar-total strong{font-family:var(--font-head);font-size:24px}
+.btn{border:0;border-radius:999px;padding:14px 22px;font-weight:800;font-size:16px;cursor:pointer}
+.btn-main{background:var(--ok);color:#fff}
+.btn-sec{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:30}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:31;background:var(--bg);border-radius:22px 22px 0 0;max-height:92vh;overflow-y:auto;padding-bottom:env(safe-area-inset-bottom, 0px)}
+.sheet .wrap{max-width:600px;padding-block:22px 26px;display:flex;flex-direction:column;gap:14px}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.sheet h2{font-family:var(--font-sign);font-weight:400;font-size:28px;color:var(--wood)}
+.close{background:var(--paper);border:1px solid var(--line);color:var(--ink);width:40px;height:40px;border-radius:50%;font-size:22px;cursor:pointer}
+.summary{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;font-variant-numeric:tabular-nums}
+.summary .row{display:flex;justify-content:space-between;gap:12px}
+.summary .row.total{border-top:1px dashed var(--line);padding-top:8px;margin-top:4px;font-weight:800;font-size:18px}
+.note{font-size:13px;color:var(--muted);margin:0}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label,.field legend{font-weight:700;font-size:14px}
+.field input,.field textarea{font-size:16px;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink)}
+.field input:focus,.field textarea:focus{border-color:var(--wood);outline:none}
+fieldset{border:0;padding:0;margin:0}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg label{flex:1;min-width:110px;text-align:center;padding:11px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);cursor:pointer;font-weight:700;font-size:15px;position:relative}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label:has(input:checked){border-color:var(--wood);color:var(--wood);box-shadow:inset 0 0 0 1px var(--wood)}
+.seg label:has(input:focus-visible){outline:3px solid #f2b33d}
+.err{color:#d93a3f;font-size:14px;font-weight:700;margin:0}
+.preview{white-space:pre-wrap;background:var(--paper);border:1px dashed var(--muted);border-radius:12px;padding:14px;font-size:14px;max-height:220px;overflow:auto}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.actions .btn{flex:1;min-width:160px;text-align:center;text-decoration:none}
+@media (prefers-reduced-motion: reduce){.bar{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="demo-strip"><div class="wrap">Propuesta de página web para Oxopampa Fosky · preparada por Anderson Web</div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="sign"><small>Restaurante · Cafetería</small><h1>Oxopampa Fosky</h1></div>
+    <p class="tagline">El sabor y la calidez de una cabaña oxapampina, aquí en Pucusana.</p>
+    <div class="pills">
+      <span class="pill"><span class="dot" id="dot"></span><span id="open-text">Lun a sáb · 7:00 a. m. a 11:45 p. m.</span></span>
+      <span class="pill">★ 4,2 en Google · más de 110 opiniones</span>
+    </div>
+    <a class="cta" href="#carta">Ver la carta y pedir</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="feature">
+    <article class="feat">
+      <img src="img/lomo.jpg" alt="Lomo saltado con arroz y papas fritas">
+      <div class="feat-body"><small>Desde S/ 20</small><h3>Lomo saltado</h3><p>Carne salteada al wok con arroz y papas fritas.</p></div>
+    </article>
+    <article class="feat">
+      <img src="img/chaufa.jpg" alt="Arroz chaufa">
+      <div class="feat-body"><small>Especial de la casa · S/ 35</small><h3>Chaufa mixto oxapampino</h3><p>Cabanosi, chorizo y cecina ahumada salteados con arroz.</p></div>
+    </article>
+  </div>
+</main>
+
+<nav class="tabs" id="carta" aria-label="Secciones de la carta">
+  <div class="wrap" id="tabs" role="tablist"></div>
+</nav>
+
+<div class="wrap">
+  <section class="board" id="board" role="tabpanel" aria-live="polite"></section>
+
+  <div class="cafe">
+    <svg viewBox="0 0 84 84" aria-hidden="true">
+      <path d="M30 14c-4 6 4 8 0 14M42 10c-4 6 4 8 0 14M54 14c-4 6 4 8 0 14" stroke="#f2b33d" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M16 36h52v14c0 14-11 24-26 24S16 64 16 50z" fill="#f8ead6"/>
+      <path d="M68 42h4a8 8 0 0 1 0 16h-6" stroke="#f8ead6" stroke-width="5" fill="none"/>
+      <rect x="10" y="74" width="64" height="5" rx="2.5" fill="#a8693a"/>
+    </svg>
+    <div>
+      <h2>Ven por el café</h2>
+      <p>Nuestros clientes lo recomiendan siempre. Acompáñalo con un buen plato en un ambiente amplio y fresco, decorado como una cabaña de Oxapampa.</p>
+    </div>
+  </div>
+
+  <div class="info">
+    <div><b>Dirección</b>A.H. Las Lomas de Manchan, Pucusana</div>
+    <div><b>Horario</b>Lunes a sábado, 7:00 a. m. a 11:45 p. m. · Domingo cerrado</div>
+    <div><b>Pedidos</b>Para comer aquí, recoger o delivery por WhatsApp</div>
+  </div>
+</div>
+<footer>Propuesta de Anderson Web · +51 947 350 799 · Precios tomados de la carta del local, por confirmar.<br>Fotos: <a href="https://commons.wikimedia.org/wiki/File:Vista_de_Oxapampa_desde_el_Mirador_de_Chontabamba.jpg" target="_blank" rel="noopener">valle de Oxapampa</a>, <a href="https://commons.wikimedia.org/wiki/File:Lomo_Saltado,_Lima,_Peru.JPG" target="_blank" rel="noopener">lomo saltado</a> y <a href="https://commons.wikimedia.org/wiki/File:Arroz_chaufa_especial_12032009.JPG" target="_blank" rel="noopener">chaufa</a> vía Wikimedia Commons (licencias Creative Commons).</footer>
+
+<div class="bar" id="bar" data-empty="true" aria-live="polite">
+  <div class="wrap"><div class="bar-inner">
+    <div class="bar-total"><small id="bar-count">0 platos</small><strong id="bar-sum">S/ 0.00</strong></div>
+    <button class="btn btn-main" id="open-sheet" type="button">Ver pedido</button>
+  </div></div>
+</div>
+
+<div class="sheet-bg" id="sheet-bg" hidden></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" hidden>
+  <div class="wrap">
+    <div class="sheet-head"><h2 id="sheet-title">Tu pedido</h2><button class="close" id="close-sheet" type="button" aria-label="Cerrar">×</button></div>
+    <div class="summary" id="summary"></div>
+    <form id="order-form" novalidate>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="field"><label for="f-name">Tu nombre</label><input id="f-name" autocomplete="name" placeholder="Ej. Rosa Quispe"></div>
+        <fieldset class="field"><legend>¿Cómo lo quieres?</legend>
+          <div class="seg">
+            <label><input type="radio" name="mode" id="m-del" value="delivery" checked><span>Delivery</span></label>
+            <label><input type="radio" name="mode" id="m-pick" value="recojo"><span>Paso a recoger</span></label>
+            <label><input type="radio" name="mode" id="m-table" value="mesa"><span>Separar mesa</span></label>
+          </div>
+        </fieldset>
+        <div class="field" id="addr-field"><label for="f-addr">Dirección y referencia</label><textarea id="f-addr" rows="2" placeholder="Ej. Mz. B lote 12, frente a la losa"></textarea></div>
+        <div class="field" id="time-field" hidden><label for="f-time">¿A qué hora llegas y cuántas personas?</label><input id="f-time" placeholder="Ej. 8:00 p. m., 4 personas"></div>
+        <p class="err" id="err" hidden></p>
+        <button class="btn btn-main" type="submit">Preparar mensaje de WhatsApp</button>
+      </div>
+    </form>
+    <div id="result" hidden style="display:flex;flex-direction:column;gap:12px">
+      <div class="preview" id="preview"></div>
+      <div class="actions">
+        <a class="btn btn-main" id="wa-link" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+        <button class="btn btn-sec" id="copy-msg" type="button">Copiar mensaje</button>
+      </div>
+      <p class="note">Demo: el pedido llega al WhatsApp de Anderson Web (+51 947 350 799). En la web final llegará al número del restaurante.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var PHONE='51947350799';
+  var SECTIONS=[
+    {id:'menu',tab:'Menú S/ 20',title:'Platos de S/ 20',sub:'Todos incluyen su infusión y pan.',badge:'S/ 20',foot:'La tortilla de verduras puede ser con chorizo o con cecina ahumada.',items:[
+      {id:'m1',n:'Lomo saltado',d:'Carne saltada, arroz y papas fritas',p:20,hot:true},
+      {id:'m2',n:'Saltado de pollo',d:'Pollo saltado, arroz y papas fritas',p:20},
+      {id:'m3',n:'Chaufa de pollo',d:'Salteado de pollo con arroz',p:20},
+      {id:'m4',n:'Mostrito 1/8',d:'1/8 de pollo broaster, chaufa, ensalada y papas fritas',p:20},
+      {id:'m5',n:'Pescado frito',d:'Con yuca, arroz y salsa criolla',p:20},
+      {id:'m6',n:'Tortilla de verduras',d:'Con arroz, papas sancochadas y tortilla',p:20},
+      {id:'m7',n:'Hígado frito',d:'Papa sancochada, arroz y ensalada',p:20},
+      {id:'m8',n:'Saltado de hígado',d:'Hígado saltado, arroz y papas fritas',p:20},
+      {id:'m9',n:'Minuta de carne',d:'Sopa con leche, verduras, huevo y trozos de carne',p:20},
+      {id:'m10',n:'Sustancia de pollo',d:'Pollo, aderezo, cabello de ángel y verduras',p:20},
+      {id:'m11',n:'Dieta de pollo',d:'Sopa con cabello de ángel, verduras y pechuga en trozos',p:20}
+    ]},
+    {id:'carta',tab:'A la carta',title:'Platos a la carta',sub:'Porciones completas con papas fritas o arroz.',badge:'S/ 25',items:[
+      {id:'c1',n:'Pollo saltado',d:'Arroz, papas fritas y pollo en trozos salteado',p:25},
+      {id:'c2',n:'Tallarín saltado de pollo',d:'Tallarín con pollo salteado en trozos',p:25},
+      {id:'c3',n:'Pechuga a la plancha',d:'Papas fritas, ensalada y 100 g de pechuga',p:25},
+      {id:'c4',n:'Milanesa de pollo',d:'200 g de pechuga empanizada, papas fritas y ensalada',p:25},
+      {id:'c5',n:'Nuggets de pollo',d:'Trozos de pollo empanizados, papas fritas y ensalada',p:25},
+      {id:'c6',n:'Pollo broaster 1/4',d:'1/4 de pollo empanizado, papas fritas y ensalada',p:25,hot:true},
+      {id:'c7',n:'Chaufa de pollo',d:'Trozos de pollo salteado con arroz',p:25},
+      {id:'c8',n:'Chicharrón de pollo',d:'Pollo sin hueso marinado, papas fritas y ensalada',p:null},
+      {id:'c9',n:'Mostrito de 1/4',d:'1/4 de pollo broaster, chaufa, ensalada y papas fritas',p:null}
+    ]},
+    {id:'especiales',tab:'Especiales oxapampinos',title:'Platos extras',sub:'Los favoritos de la casa, con el toque de Oxapampa.',badge:'Desde S/ 28',items:[
+      {id:'e1',n:'Chaufa mixto oxapampino',d:'Cabanosi, chorizo y cecina ahumada salteada con arroz',p:35,hot:true},
+      {id:'e2',n:'Bistec a lo pobre oxapampino',d:'Bistec, papas fritas, arroz, plátano y 1 huevo',p:35},
+      {id:'e3',n:'Churrasco a lo pobre oxapampino',d:'Churrasco, papas fritas, plátano, arroz y 1 huevo',p:35},
+      {id:'e4',n:'Bistec apanado oxapampino',d:'200 g de bistec, papas fritas y ensalada',p:30},
+      {id:'e5',n:'Lomo saltado',d:'Carne en trozos salteada, arroz y papas fritas',p:30},
+      {id:'e6',n:'Pechuga a lo pobre',d:'200 g de pechuga a la plancha, arroz, papas fritas, plátano y huevo',p:28},
+      {id:'e7',n:'Chaufa de carne',d:'Trozos de carne salteada con arroz',p:28},
+      {id:'e8',n:'Chaufa con cecina',d:'Trozos de cecina ahumada salteada con arroz',p:28}
+    ]}
+  ];
+  var byId={},cart={},current='menu';
+  SECTIONS.forEach(function(s){s.items.forEach(function(i){i.sec=s;byId[i.id]=i;});});
+  function money(n){return 'S/ '+n.toFixed(2);}
+
+  try{
+    var g={};new Intl.DateTimeFormat('en-US',{timeZone:'America/Lima',weekday:'short',hour:'numeric',minute:'numeric',hour12:false}).formatToParts(new Date()).forEach(function(p){g[p.type]=p.value;});
+    var m=(+g.hour%24)*60+(+g.minute),on=g.weekday!=='Sun'&&m>=420&&m<1425;
+    document.getElementById('dot').className='dot '+(on?'on':'off');
+    document.getElementById('open-text').textContent=on?'Abierto ahora · hasta las 11:45 p. m.':(g.weekday==='Sun'?'Hoy domingo cerramos':'Cerrado · abrimos a las 7:00 a. m.');
+  }catch(e){}
+
+  var tabs=document.getElementById('tabs');
+  SECTIONS.forEach(function(s){
+    var b=document.createElement('button');b.type='button';b.className='tab';b.setAttribute('role','tab');b.id='tab-'+s.id;b.textContent=s.tab;
+    b.addEventListener('click',function(){current=s.id;drawTabs();drawBoard();});
+    tabs.appendChild(b);
+  });
+  function drawTabs(){tabs.querySelectorAll('.tab').forEach(function(b){b.setAttribute('aria-selected',b.id==='tab-'+current?'true':'false');});}
+
+  function drawBoard(){
+    var s=SECTIONS.filter(function(x){return x.id===current;})[0],bd=document.getElementById('board');
+    bd.setAttribute('aria-labelledby','tab-'+s.id);
+    bd.innerHTML='<div class="board-head"><div><h2></h2><p></p></div><span class="price-badge"></span></div><div class="items"></div>'+(s.foot?'<div class="board-foot"></div>':'');
+    bd.querySelector('h2').textContent=s.title;bd.querySelector('p').textContent=s.sub;bd.querySelector('.price-badge').textContent=s.badge;
+    if(s.foot)bd.querySelector('.board-foot').textContent=s.foot;
+    var box=bd.querySelector('.items');
+    s.items.forEach(function(i){
+      var el=document.createElement('div');el.className='item';
+      el.innerHTML='<div class="item-info"><div class="item-name"></div><div class="item-desc"></div><div class="item-price"></div></div><div class="ctl"></div>';
+      var nm=el.querySelector('.item-name');nm.textContent=i.n;
+      if(i.hot){var st=document.createElement('span');st.className='star';st.textContent='Recomendado';nm.appendChild(st);}
+      el.querySelector('.item-desc').textContent=i.d;
+      var pr=el.querySelector('.item-price');
+      if(i.p==null){pr.textContent='Precio por confirmar';pr.classList.add('ask');}
+      else pr.textContent=money(i.p);
+      var ctl=el.querySelector('.ctl');
+      if(i.p!=null){
+        var q=cart[i.id]||0;
+        ctl.innerHTML='<div class="qty"><button type="button" class="sub">−</button><span class="n"></span><button type="button" class="add">+</button></div>';
+        ctl.querySelector('.sub').hidden=!q;ctl.querySelector('.n').hidden=!q;ctl.querySelector('.n').textContent=q;
+        ctl.querySelector('.sub').setAttribute('aria-label','Quitar '+i.n);ctl.querySelector('.add').setAttribute('aria-label','Agregar '+i.n);
+        ctl.querySelector('.add').addEventListener('click',function(){change(i.id,1);});
+        ctl.querySelector('.sub').addEventListener('click',function(){change(i.id,-1);});
+      }
+      box.appendChild(el);
+    });
+  }
+  function mode(){return document.querySelector('input[name=mode]:checked').value;}
+  function totals(){var c=0,t=0;Object.keys(cart).forEach(function(k){c+=cart[k];t+=cart[k]*byId[k].p;});return {c:c,t:t};}
+  function change(id,d){
+    cart[id]=Math.max(0,(cart[id]||0)+d);if(!cart[id])delete cart[id];
+    drawBoard();update();
+    var b=document.querySelector('[aria-label="'+(cart[id]?'Agregar ':'Agregar ')+byId[id].n+'"]');if(b)b.focus();
+  }
+  function update(){
+    var t=totals();
+    document.getElementById('bar').dataset.empty=t.c?'false':'true';
+    document.getElementById('bar-count').textContent=t.c+(t.c===1?' plato':' platos');
+    document.getElementById('bar-sum').textContent=money(t.t);
+    var sm=document.getElementById('summary');sm.innerHTML='';
+    function row(a,b,cls){var r=document.createElement('div');r.className='row'+(cls?' '+cls:'');var x=document.createElement('span');x.textContent=a;var y=document.createElement('span');y.textContent=b;r.appendChild(x);r.appendChild(y);sm.appendChild(r);}
+    Object.keys(cart).forEach(function(k){row(cart[k]+' × '+byId[k].n+(byId[k].sec.id==='menu'?' (menú)':''),money(cart[k]*byId[k].p));});
+    if(mode()==='delivery')row('Delivery','Se coordina por WhatsApp');
+    row('Total',money(t.t),'total');
+    if(!t.c)closeSheet();
+  }
+
+  var sheet=document.getElementById('sheet'),bg=document.getElementById('sheet-bg');
+  function openSheet(){sheet.hidden=false;bg.hidden=false;document.getElementById('result').hidden=true;document.getElementById('order-form').hidden=false;}
+  function closeSheet(){sheet.hidden=true;bg.hidden=true;}
+  document.getElementById('open-sheet').addEventListener('click',openSheet);
+  document.getElementById('close-sheet').addEventListener('click',closeSheet);
+  bg.addEventListener('click',closeSheet);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet();});
+  document.querySelectorAll('input[name=mode]').forEach(function(r){r.addEventListener('change',function(){
+    document.getElementById('addr-field').hidden=mode()!=='delivery';
+    document.getElementById('time-field').hidden=mode()!=='mesa';update();
+  });});
+
+  var msg='';
+  document.getElementById('order-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=document.getElementById('f-name').value.trim(),addr=document.getElementById('f-addr').value.trim(),tm=document.getElementById('f-time').value.trim(),err=document.getElementById('err');
+    if(!name){err.textContent='Escribe tu nombre para saber a quién atender.';err.hidden=false;return;}
+    if(mode()==='delivery'&&!addr){err.textContent='Escribe tu dirección para enviarte el pedido.';err.hidden=false;return;}
+    if(mode()==='mesa'&&!tm){err.textContent='Cuéntanos a qué hora llegas y cuántas personas son.';err.hidden=false;return;}
+    err.hidden=true;
+    var t=totals(),L=['Hola Oxopampa Fosky, quiero hacer un pedido:',''];
+    Object.keys(cart).forEach(function(k){L.push('• '+cart[k]+' × '+byId[k].n+(byId[k].sec.id==='menu'?' (menú S/ 20)':'')+' — '+money(cart[k]*byId[k].p));});
+    L.push('','*Total: '+money(t.t)+'*','','Nombre: '+name);
+    if(mode()==='delivery')L.push('Delivery a: '+addr);
+    else if(mode()==='recojo')L.push('Paso a recoger');
+    else L.push('Separar mesa: '+tm);
+    msg=L.join('\n');
+    document.getElementById('preview').textContent=msg;
+    document.getElementById('wa-link').href='https://wa.me/'+PHONE+'?text='+encodeURIComponent(msg);
+    document.getElementById('order-form').hidden=true;document.getElementById('result').hidden=false;
+  });
+  var cb=document.getElementById('copy-msg');
+  cb.addEventListener('click',function(){
+    function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById('preview'));var s=getSelection();s.removeAllRanges();s.addRange(r);cb.textContent='Selecciona y copia';}
+    try{navigator.clipboard.writeText(msg).then(function(){cb.textContent='¡Copiado!';setTimeout(function(){cb.textContent='Copiar mensaje';},1800);},sel);}catch(e){sel();}
+  });
+
+  cart={m1:2,e1:1};
+  drawTabs();drawBoard();update();
+})();
+</script>
+
+</body>
+</html>
